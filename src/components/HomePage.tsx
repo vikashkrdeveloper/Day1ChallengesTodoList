@@ -1,18 +1,35 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
+interface TodoDataObject {
+    Todo_Title: string;
+    Todo_Data: string;
+    Current_Date: number;
+    Current_Month: number;
+    Current_Year: number;
+    Current_Hours: number;
+    Current_Minutes: number;
+    Current_Day: number;
+    Todo_Done_Status: boolean;
+}
+
 function HomePage() {
     const [TodoListData, SetTodoListData] = useState<string>("");
     const [TodoListDataUpdate, SetTodoListDataUpdate] = useState<string>("");
-    const [Getmonth, SetMonth] = useState(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]);
-    const [Getdays, Setdays] = useState(["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]);
-    const [IsLoader, SetIsLoader] = useState(true);
-    const [GetTodoData, SetTodoData] = useState([]);
-    const [ToDoDataUpdate, SetTodoDataUpdate] = useState(false);
-    const [TodoDataUpdateId, SetTodoDataUpdateId] = useState(0);
-    const [TodoDataView, SetTodoDataView] = useState(false);
-    const [TodoDataViewId, SetTodoDataViewId] = useState(0);
-    const TodoDataAdd = (e) => {
+    const [Getmonth, SetMonth] = useState<string[]>([
+        "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ]);
+    const [Getdays, Setdays] = useState<string[]>([
+        "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
+    ]);
+    const [IsLoader, SetIsLoader] = useState<boolean>(true);
+    const [GetTodoData, SetTodoData] = useState<TodoDataObject[]>([]);
+    const [ToDoDataUpdate, SetTodoDataUpdate] = useState<boolean>(false);
+    const [TodoDataUpdateId, SetTodoDataUpdateId] = useState<number>(0);
+    const [TodoDataView, SetTodoDataView] = useState<boolean>(false);
+    const [TodoDataViewId, SetTodoDataViewId] = useState<number>(0);
+
+    const TodoDataAdd = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
         SetIsLoader(true);
         if (TodoListData) {
@@ -25,7 +42,7 @@ function HomePage() {
                 const CurrentHours = TodayDate.getHours();
                 const CurrentMinutes = TodayDate.getMinutes();
                 const CurrentDay = TodayDate.getDay();
-                const TodoDataObject = {
+                const TodoDataObject: TodoDataObject = {
                     Todo_Title: TodoTitle,
                     Todo_Data: String(TodoListData).trim(),
                     Current_Date: CurrentDate,
@@ -36,7 +53,7 @@ function HomePage() {
                     Current_Day: CurrentDay,
                     Todo_Done_Status: false,
                 }
-                SetTodoData((prev) => [...prev, TodoDataObject]);
+                SetTodoData(prev => [...prev, TodoDataObject]);
                 SetTodoListData("");
                 SetIsLoader(false);
 
@@ -45,11 +62,12 @@ function HomePage() {
                 SetIsLoader(false);
             }
         } else {
-            toast.warning("Please field the todo data then save");
+            toast.warning("Please fill the todo data then save");
             SetIsLoader(false);
         }
     }
-    const TodoDataUpdate = (e) => {
+
+    const TodoDataUpdate = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
         SetIsLoader(true);
         if (TodoListDataUpdate && TodoDataUpdateId >= 0) {
@@ -62,10 +80,10 @@ function HomePage() {
                 const CurrentHours = TodayDate.getHours();
                 const CurrentMinutes = TodayDate.getMinutes();
                 const CurrentDay = TodayDate.getDay();
-                const TodoDataObject = {
+                const TodoDataObject: TodoDataObject = {
                     Todo_Title: TodoTitle,
                     Todo_Data: TodoListDataUpdate,
-                    Current_Date: String(CurrentDate).trim(),
+                    Current_Date: CurrentDate,
                     Current_Month: CurrentMonth,
                     Current_Year: CurrentYear,
                     Current_Hours: CurrentHours,
@@ -73,8 +91,8 @@ function HomePage() {
                     Current_Day: CurrentDay,
                     Todo_Done_Status: false,
                 }
-                GetTodoData[TodoDataUpdateId] = TodoDataObject
-                SetTodoData((prev) => [...prev]);
+                GetTodoData[TodoDataUpdateId] = TodoDataObject;
+                SetTodoData(prev => [...prev]);
                 SetTodoListDataUpdate("");
                 SetIsLoader(false);
                 SetTodoDataUpdate(false);
@@ -84,60 +102,58 @@ function HomePage() {
                 SetIsLoader(false);
             }
         } else {
-            toast.warning("Please field the todo data then save");
+            toast.warning("Please fill the todo data then save");
             SetIsLoader(false);
-        }
-    }
-    const Todo_Done_Status_Change = (id) => {
-        const verification = window.confirm("Are you sure to update todo status ");
-        if (verification) {
-            SetIsLoader(true);
-            if (Object(GetTodoData[id]).Todo_Done_Status) {
-                Object(GetTodoData[id]).Todo_Done_Status = false;
-                SetTodoData((prev) => [...prev]);
-                toast.success((Object(GetTodoData[id])?.Todo_Title) + " Todo status update sucessfully");
-                SetIsLoader(false);
-            } else {
-                Object(GetTodoData[id]).Todo_Done_Status = true;
-                SetIsLoader(false);
-                SetTodoData((prev) => [...prev]);
-                toast.success((Object(GetTodoData[id])?.Todo_Title) + " Todo status update sucessfully");
-            }
-        }
-    }
-    const TodoDataListDeleted = (id) => {
-        const verification = window.confirm("Are you sure to delete " + Object(GetTodoData[id])?.Todo_Title + " this todo");
-        if (verification) {
-            SetIsLoader(true);
-            const title = Object(GetTodoData[id])?.Todo_Title;
-            GetTodoData.splice(id, 1);
-            SetTodoData((prev) => [...prev]);
-            if (GetTodoData.length == 0) {
-                localStorage.setItem("TodoList", JSON.stringify(GetTodoData));
-            }
-            SetIsLoader(false);
-            toast.success(title + " Todo data deleted sucessfully");
         }
     }
 
-    const TodoDataListUpdate = (id) => {
-        const verification = window.confirm("Are you sure to update " + Object(GetTodoData[id])?.Todo_Title + " this todo");
+    const Todo_Done_Status_Change = (id: number): void => {
+        const verification = window.confirm("Are you sure to update todo status ");
+        if (verification) {
+            SetIsLoader(true);
+            if (GetTodoData[id]?.Todo_Done_Status) {
+                GetTodoData[id].Todo_Done_Status = false;
+            } else {
+                GetTodoData[id].Todo_Done_Status = true;
+            }
+            SetTodoData(prev => [...prev]);
+            toast.success(`${GetTodoData[id]?.Todo_Title} Todo status update successfully`);
+            SetIsLoader(false);
+        }
+    }
+
+    const TodoDataListDeleted = (id: number): void => {
+        const verification = window.confirm(`Are you sure to delete ${GetTodoData[id]?.Todo_Title} this todo`);
+        if (verification) {
+            SetIsLoader(true);
+            const title = GetTodoData[id]?.Todo_Title;
+            GetTodoData.splice(id, 1);
+            SetTodoData(prev => [...prev]);
+            if (GetTodoData.length === 0) {
+                localStorage.setItem("TodoList", JSON.stringify(GetTodoData));
+            }
+            SetIsLoader(false);
+            toast.success(`${title} Todo data deleted successfully`);
+        }
+    }
+
+    const TodoDataListUpdate = (id: number): void => {
+        const verification = window.confirm(`Are you sure to update ${GetTodoData[id]?.Todo_Title} this todo`);
         if (verification && id >= 0) {
             SetTodoDataUpdateId(id);
-            SetTodoListDataUpdate(Object(GetTodoData[id])?.Todo_Data);
+            SetTodoListDataUpdate(GetTodoData[id]?.Todo_Data);
             SetTodoDataUpdate(true);
         } else {
             SetTodoDataUpdate(false);
         }
     }
 
-    const SetTodoDataViewFun = (id) => {
+    const SetTodoDataViewFun = (id: number): void => {
         if (id >= 0) {
             SetTodoDataViewId(id);
-            SetTodoDataView(GetTodoData[id]);
+            SetTodoDataView(Object(GetTodoData[id])?.Todo_Data);
         } else {
             toast.error("Some technical issue");
-
         }
     }
 
@@ -150,12 +166,19 @@ function HomePage() {
             const TodolocalHostdata = JSON.parse(TodolocalHostdataGet);
             SetTodoData(TodolocalHostdata);
         }
-    }, [GetTodoData])
-    useEffect(() => {
+    }, [GetTodoData]);
 
+    useEffect(() => {
+        SetMonth([
+            "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+        ]);
+        Setdays([
+            "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
+        ]);
         SetIsLoader(false);
         SetTodoDataUpdate(false);
-    }, [])
+    }, []);
+
 
 
     return (
