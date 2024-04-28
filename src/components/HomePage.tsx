@@ -129,7 +129,7 @@ function HomePage() {
             const title = GetTodoData[id]?.Todo_Title;
             GetTodoData.splice(id, 1);
             SetTodoData(prev => [...prev]);
-            if (GetTodoData.length === 0) {
+            if (GetTodoData.length ===0) {
                 localStorage.setItem("TodoList", JSON.stringify(GetTodoData));
             }
             SetIsLoader(false);
@@ -161,14 +161,16 @@ function HomePage() {
         if (GetTodoData.length) {
             localStorage.setItem("TodoList", JSON.stringify(GetTodoData));
         }
+
+    }, [GetTodoData]);
+
+
+    useEffect(() => {
         const TodolocalHostdataGet = localStorage.getItem("TodoList");
         if (TodolocalHostdataGet) {
             const TodolocalHostdata = JSON.parse(TodolocalHostdataGet);
             SetTodoData(TodolocalHostdata);
         }
-    }, [GetTodoData]);
-
-    useEffect(() => {
         SetMonth([
             "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
         ]);
@@ -230,7 +232,8 @@ function HomePage() {
                                         GetTodoData?.map((TodoData, index) => (
                                             <div key={index} className="bg-[#1b3746] border-[1px] max-sm:block  rounded-[2px] border-[#204255] shadow-2xl h-[60px] w-full flex justify-start items-center p-[10px] max-sm:h-[auto] gap-2 ">
                                                 {/* This is vikash kumar from gecsiwan cse(IOT) student */}
-                                                <p className="w-[300px] max-lg:w-[100px] max-sm:mb-4 max-sm:w-[100%] max-sm:flex  h-[30px] truncate justify-between items-center gap-2">{Object(TodoData)?.Todo_Title}
+                                                <p className="w-[300px] max-lg:w-[100px] max-sm:mb-4 max-sm:w-[100%] max-sm:flex  h-[30px]  justify-between items-center gap-2">
+                                                    <span className="w-[300px] max-lg:w-[100px] max-sm:w-[50px] truncate mr-2">{Object(TodoData)?.Todo_Title}</span>
                                                     <button type="button" className="bg-[#12292a] sm:hidden select-none border-[1px] border-[#1e3843] text-[#f4faff] font-[600] text-[12px] rounded-[2px] w-[150px] h-[25px] cursor-default outline-none">{Object(TodoData)?.Current_Date > 9 ? Object(TodoData)?.Current_Date : "0" + Object(TodoData)?.Current_Date} {Getmonth[Object(TodoData)?.Current_Month]} {Object(TodoData)?.Current_Year}, {Getdays[Object(TodoData)?.Current_Day]} {Object(TodoData)?.Current_Hours > 9 ? Object(TodoData)?.Current_Hours : "0" + Object(TodoData)?.Current_Hours}:{Object(TodoData)?.Current_Minutes > 9 ? Object(TodoData)?.Current_Minutes : "0" + Object(TodoData)?.Current_Minutes}</button>
                                                 </p>
                                                 <div className="flex justify-end items-center gap-2">
