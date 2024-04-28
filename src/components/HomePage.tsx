@@ -210,7 +210,7 @@ function HomePage() {
                     </button>
                 </form>
             </section>
-            <section className="w-[900px] max-lg:w-[600px] max-sm:w-[90%] h-[500px] max-sm:h-[90%] border-2 border-[#1e3648] shadow-inner shadow-[#1b2831]  bg-[#122634] rounded-[5px] flex flex-col justify-center items-center">
+            <section className="w-[900px] max-lg:w-[700px] max-sm:w-[90%] h-[500px] max-sm:h-[90%] border-2 border-[#1e3648] shadow-inner shadow-[#1b2831]  bg-[#122634] rounded-[5px] flex flex-col justify-center items-center">
                 <h1 className=" text-center text-[30px] w-full h-[auto] select-none pt-[20px] pb-[20px] leading-[40px] bg-transparent font-[700]">TodoList📝</h1>
                 <form onSubmit={TodoDataAdd} className=" w-full h-full flex flex-col justify-center items-center">
                     <div className="w-[80%] h-[45px] flex  items-center border-[2px]  mt-4 bg-[#192f40] border-[#1b3446]  rounded-[5px]">
@@ -221,7 +221,7 @@ function HomePage() {
                             </span>
                         </button>
                     </div>
-                    <div id="tododatalist" className="w-[80%] h-[340px]  max-sm:h-[500px] flex  bg-[#193443] border-[2px] border-[#234455] rounded-[3px] justify-center items-start overflow-auto mt-4  mb-6 ">
+                    <div id="tododatalist" className="w-[80%] h-[340px]  max-sm:h-[350px] flex  bg-[#193443] border-[2px] border-[#234455] rounded-[3px] justify-center items-start overflow-auto mt-4  mb-6 ">
                         <div className="w-[100%] h-[auto] flex flex-col  gap-2 p-3 pt-6 ">
                             {
                                 IsLoader ? (
