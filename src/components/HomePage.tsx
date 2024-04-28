@@ -221,7 +221,7 @@ function HomePage() {
                             </span>
                         </button>
                     </div>
-                    <div id="tododatalist" className="w-[80%] h-[340px]  max-sm:h-[350px] flex  bg-[#193443] border-[2px] border-[#234455] rounded-[3px] justify-center items-start overflow-auto mt-4  mb-6 ">
+                    <div id="tododatalist" className="w-[80%] h-[85%]  flex  bg-[#193443] border-[2px] border-[#234455] rounded-[3px] justify-center items-start overflow-auto mt-4  mb-6 ">
                         <div className="w-[100%] h-[auto] flex flex-col  gap-2 p-3 pt-6 ">
                             {
                                 IsLoader ? (
