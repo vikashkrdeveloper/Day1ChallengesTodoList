@@ -230,7 +230,7 @@ function HomePage() {
                                 ) : (
 
                                     GetTodoData.length ? (
-                                        GetTodoData?.reverse().map((TodoData, index) => (
+                                        GetTodoData?.map((TodoData, index) => (
                                             <div key={index} className="bg-[#1b3746] border-[1px] max-sm:block  rounded-[2px] border-[#204255] shadow-2xl h-[60px] w-full flex justify-start items-center p-[10px] max-sm:h-[auto] gap-2 ">
                                                 {/* This is vikash kumar from gecsiwan cse(IOT) student */}
                                                 <p className="w-[300px] max-lg:w-[100px] max-sm:mb-4 max-sm:w-[100%] max-sm:flex  h-[30px]  justify-between items-center gap-2">
@@ -238,15 +238,15 @@ function HomePage() {
                                                     <button type="button" className="bg-[#12292a] sm:hidden select-none border-[1px] border-[#1e3843] text-[#f4faff] font-[600] text-[12px] rounded-[2px] w-[150px] h-[25px] cursor-default outline-none">{Object(TodoData)?.Current_Date > 9 ? Object(TodoData)?.Current_Date : "0" + Object(TodoData)?.Current_Date} {Getmonth[Object(TodoData)?.Current_Month]} {Object(TodoData)?.Current_Year}, {Getdays[Object(TodoData)?.Current_Day]} {Object(TodoData)?.Current_Hours > 9 ? Object(TodoData)?.Current_Hours : "0" + Object(TodoData)?.Current_Hours}:{Object(TodoData)?.Current_Minutes > 9 ? Object(TodoData)?.Current_Minutes : "0" + Object(TodoData)?.Current_Minutes}</button>
                                                 </p>
                                                 <div className="flex justify-end items-center gap-2">
-                                                    <button type="button" onClick={() => { SetTodoDataViewFun(GetTodoData.length - (index + 1)) }} className="bg-[#2db92b] select-none text-[#0d161d] font-[600] text-[12px] rounded-[2px] w-[50px] h-[25px] cursor-pointer  outline-none">View</button>
-                                                    <input type="checkbox" onChange={() => { Todo_Done_Status_Change(Number(GetTodoData.length - (index + 1))) }} checked={Object(TodoData)?.Todo_Done_Status} className=" w-6 h-6  select-none text-blue-600 bg-gray-100 border-gray-300 rounded-[10px] focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 ml-2 mr-2 cursor-pointer outline-none" />
+                                                    <button type="button" onClick={() => { SetTodoDataViewFun(index) }} className="bg-[#2db92b] select-none text-[#0d161d] font-[600] text-[12px] rounded-[2px] w-[50px] h-[25px] cursor-pointer  outline-none">View</button>
+                                                    <input type="checkbox" onChange={() => { Todo_Done_Status_Change(Number(index)) }} checked={Object(TodoData)?.Todo_Done_Status} className=" w-6 h-6  select-none text-blue-600 bg-gray-100 border-gray-300 rounded-[10px] focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 ml-2 mr-2 cursor-pointer outline-none" />
                                                     <button type="button" className="bg-[#12292a] max-sm:hidden select-none border-[1px] border-[#1e3843] text-[#f4faff] font-[600] text-[12px] rounded-[2px] w-[150px] h-[25px] cursor-default outline-none">{Object(TodoData)?.Current_Date > 9 ? Object(TodoData)?.Current_Date : "0" + Object(TodoData)?.Current_Date} {Getmonth[Object(TodoData)?.Current_Month]} {Object(TodoData)?.Current_Year}, {Getdays[Object(TodoData)?.Current_Day]} {Object(TodoData)?.Current_Hours > 9 ? Object(TodoData)?.Current_Hours : "0" + Object(TodoData)?.Current_Hours}:{Object(TodoData)?.Current_Minutes > 9 ? Object(TodoData)?.Current_Minutes : "0" + Object(TodoData)?.Current_Minutes}</button>
-                                                    <button type="button" onClick={() => { TodoDataListUpdate(Number(GetTodoData.length - (index + 1))) }} className="bg-[#fffc3e] select-none text-[#0d161d] font-[600] text-[12px] rounded-[2px] w-[40px] h-[25px] cursor-pointer  ml-2 outline-none">
+                                                    <button type="button" onClick={() => { TodoDataListUpdate(Number(index)) }} className="bg-[#fffc3e] select-none text-[#0d161d] font-[600] text-[12px] rounded-[2px] w-[40px] h-[25px] cursor-pointer  ml-2 outline-none">
                                                         <span className="material-symbols-outlined text-[18px] flex justify-center items-center">
                                                             edit
                                                         </span>
                                                     </button>
-                                                    <button type="button" onClick={() => { TodoDataListDeleted(Number(GetTodoData.length - (index + 1))) }} className="bg-[#ef3655] select-none text-[#ffffff] font-[600] text-[12px] rounded-[2px] w-[40px] h-[25px] cursor-pointer  ml-2 outline-none">
+                                                    <button type="button" onClick={() => { TodoDataListDeleted(Number(index)) }} className="bg-[#ef3655] select-none text-[#ffffff] font-[600] text-[12px] rounded-[2px] w-[40px] h-[25px] cursor-pointer  ml-2 outline-none">
                                                         <span className="material-symbols-outlined text-[18px] flex justify-center items-center">
                                                             delete
                                                         </span>
