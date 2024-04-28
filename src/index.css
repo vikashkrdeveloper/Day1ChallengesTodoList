@@ -1,0 +1,41 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+
+body {
+  padding: 0;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #0d2131;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+}
+
+*::selection {
+  background-color: #052134;
+  color: #ffffffe0;
+}
+
+#root {
+  padding-top: 50px;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  margin: auto;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+
+}
